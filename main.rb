@@ -5,7 +5,7 @@ def random_num
   rand(1..20)
 end
 
-#Ask question
+#Ask the math question
 def question(player)
   x = random_num
   y = random_num
@@ -64,12 +64,13 @@ class Game
 
   round = Round.new(player1)
 
-  while player1.lives > 0 || player2.lives > 0
+  while player1.lives > 0 && player2.lives > 0
     question(round.current_player)
     print_scores(player1, player2)
     round.switch_player(player1, player2)
   end
 
+  puts "The final scores are:"
   print_scores(player1, player2)
 
 end
