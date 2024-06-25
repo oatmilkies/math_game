@@ -16,26 +16,28 @@ def question(player)
   answer = $stdin.gets.chomp.to_i
 
   if x + y == answer
-    puts "YES! You are correct"
+    puts "YES! You are correct #{player.name}"
   else
-    puts "Seriously? No!"
+    puts "Seriously? No! #{player.name}"
     player.lives = player.lives - 1
   end
 end
 
 #Print each player's score
 def print_scores(player1, player2)
-  puts "P1: #{player1.lives} vs P2: #{player2.lives}"
+  puts "#{player1.name}: #{player1.lives} vs #{player1.name}: #{player2.lives}"
 end
+
 
 class Player
 
-  def initialize(lives)
+  def initialize(lives, name)
     @lives = lives
+    @name = name
   end
 
-  attr_reader :lives
-  attr_writer :lives
+  attr_reader :lives, :name
+  attr_writer :lives, :name
 
 end
 
@@ -48,31 +50,27 @@ class Round
   attr_reader :current_player
   attr_writer :current_player
 
-  def switch_player(current_player)
-    if current_player == player1
-      player = player2
-    end
-    puts current_player
-  
-    return current_player
+  def switch_player(player1, player2)
+    @current_player = @current_player == player1 ? player2 : player1
   end
 
 end
 
 
-
 class Game
 
-  player1 = Player.new(3)
-  player2 = Player.new(3)
+  player1 = Player.new(3, "P1")
+  player2 = Player.new(3, "P2")
 
   round = Round.new(player1)
 
   while player1.lives > 0 || player2.lives > 0
     question(round.current_player)
     print_scores(player1, player2)
-    round.switch_player(round.current_player)
+    round.switch_player(player1, player2)
   end
+
+  print_scores(player1, player2)
 
 end
 
