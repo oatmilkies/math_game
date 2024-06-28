@@ -10,7 +10,7 @@ def question(player)
   x = random_num
   y = random_num
 
-  puts "What does #{x} plus #{y} equal?"
+  puts "#{player.name}: What does #{x} plus #{y} equal?"
 
   print "> "
   answer = $stdin.gets.chomp.to_i
@@ -28,6 +28,14 @@ def print_scores(player1, player2)
   puts "#{player1.name}: #{player1.lives} vs #{player1.name}: #{player2.lives}"
 end
 
+#Print which player is the winner
+def print_winner(player1, player2)
+  if player1.lives > 0
+    puts "#{player1.name} wins with a score of #{player1.lives}/3"
+  else
+    puts "#{player2.name} wins with a score of #{player2.lives}/3"
+  end
+end
 
 class Player
 
@@ -70,8 +78,8 @@ class Game
     round.switch_player(player1, player2)
   end
 
-  puts "The final scores are:"
-  print_scores(player1, player2)
+  puts "Game over!!"
+  print_winner(player1, player2)
 
 end
 
